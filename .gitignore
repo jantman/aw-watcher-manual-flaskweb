@@ -8,6 +8,7 @@ __pycache__/
 
 # Distribution / packaging
 .Python
+bin/
 build/
 develop-eggs/
 dist/
@@ -16,6 +17,7 @@ eggs/
 .eggs/
 lib/
 lib64/
+include/
 parts/
 sdist/
 var/
@@ -102,3 +104,6 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+pip-selfcheck.json
+config.yaml

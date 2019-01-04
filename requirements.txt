@@ -1,0 +1,5 @@
+Flask>=1.0.2,<2.0.0
+PyYAML
+# dependencies of aw-client
+requests
+persist-queue
