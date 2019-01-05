@@ -10,6 +10,8 @@ __WARNING:__ This is an exremely crude, quick app. It can only handle one user a
 
 What it does and how it works. When it sends data.
 
+It uses the "currentwindow" Event type because... well... nothing else fits better.
+
 ## Installation
 
 1. Clone this git repo: ``git clone https://github.com/jantman/aw-watcher-manual-flaskweb.git``
@@ -22,7 +24,7 @@ What it does and how it works. When it sends data.
 
 ## Configuration
 
-Copy ``config.example.yaml`` to ``config.yaml`` and edit appropriately. Settings are as follows:
+Copy ``config.example.yaml`` to ``config.yaml`` and edit appropriately.
 
 ## Running
 
