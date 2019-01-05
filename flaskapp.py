@@ -182,5 +182,6 @@ def edit():
         )
         return render_template(
             'edit.html', config=config, curr_cat=curr_cat, curr_item=curr_item,
-            curr_ts=curr_ts, hours=hours, minutes=minutes, seconds=seconds
+            curr_ts=curr_ts, hours=int(hours), minutes=int(minutes),
+            seconds=int(seconds)
         )
