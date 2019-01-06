@@ -4,6 +4,7 @@ from yaml import load
 import time
 from datetime import datetime, timedelta
 import logging
+from pprint import pformat
 try:
     from yaml import CLoader as Loader
 except ImportError:
@@ -11,7 +12,49 @@ except ImportError:
 from aw_core.models import Event
 from aw_client import ActivityWatchClient
 
+
+class ReverseProxied(object):
+    """
+    Handle when running behind a reverse proxy.
+    from: http://flask.pocoo.org/snippets/35/
+
+    Wrap the application in this middleware and configure the
+    front-end server to add these headers, to let you quietly bind
+    this to a URL other than / and to an HTTP scheme that is
+    different than what is used locally.
+
+    In nginx:
+    location /myprefix {
+        proxy_pass http://192.168.0.1:5001;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Scheme $scheme;
+        proxy_set_header X-Script-Name /myprefix;
+        }
+
+    :param app: the WSGI application
+    """
+    def __init__(self, app):
+        self.app = app
+
+    def __call__(self, environ, start_response):
+        script_name = environ.get('HTTP_X_SCRIPT_NAME', '')
+        if script_name:
+            environ['SCRIPT_NAME'] = script_name
+            path_info = environ['PATH_INFO']
+            if path_info.startswith(script_name):
+                environ['PATH_INFO'] = path_info[len(script_name):]
+        scheme = environ.get('HTTP_X_SCHEME', '')
+        if scheme:
+            environ['wsgi.url_scheme'] = scheme
+        server = environ.get('HTTP_X_FORWARDED_SERVER', '')
+        if server:
+            environ['HTTP_HOST'] = server
+        return self.app(environ, start_response)
+
+
 app = Flask(__name__)
+app.wsgi_app = ReverseProxied(app.wsgi_app)
 app.logger.setLevel(logging.DEBUG)
 
 
@@ -91,6 +134,7 @@ def timedelta_to_str(td):
 
 
 def end_current_event(start_ts, category, item, end_dt=None):
+    return
     start_dt = datetime.utcfromtimestamp(start_ts)
     if end_dt is None:
         end_dt = datetime.utcnow()
@@ -185,3 +229,8 @@ def edit():
             curr_ts=curr_ts, hours=int(hours), minutes=int(minutes),
             seconds=int(seconds)
         )
+
+
+@app.route('/requestinfo')
+def requestinfo():
+    return render_template('requestinfo.html', rinfo=pformat(vars(request)))
