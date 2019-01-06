@@ -134,7 +134,6 @@ def timedelta_to_str(td):
 
 
 def end_current_event(start_ts, category, item, end_dt=None):
-    return
     start_dt = datetime.utcfromtimestamp(start_ts)
     if end_dt is None:
         end_dt = datetime.utcnow()
