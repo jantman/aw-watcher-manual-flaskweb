@@ -1,5 +1,7 @@
 # aw-watcher-manual-flaskweb
 
+[![Project Status: Suspended – Initial development has started, but there has not yet been a stable, usable release; work has been stopped for the time being but the author(s) intend on resuming work.](https://www.repostatus.org/badges/latest/suspended.svg)](https://www.repostatus.org/#suspended)
+
 Tiny flask webapp for ActivityWatch manual data input.
 
 I've started using the excellent [ActivityWatch](https://activitywatch.net/) project to track how I spend my time when I'm at a computer. I know it's going to be really helpful, but I also wanted a way to perform coarse-grained tracking of time I spent away from the computer (cooking, watching TV, reading, etc). I really like what ActivityWatch does and I don't use an existing time tracking app, so this seemed like the simplest and most efficient solution.
